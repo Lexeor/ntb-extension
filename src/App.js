@@ -5,6 +5,7 @@ import SearchBar from "./components/SearchBar";
 import Favourites from "./components/Favourites";
 import WeatherPanel from "./components/WeatherPanel";
 import SettingsBar from "./components/SettingsBar";
+import SmartHome from "./components/SmartHome";
 import Popup from "./components/Popup";
 import {defaultSettings, getCurrentTimeOfDay} from './utils.js';
 
@@ -96,6 +97,7 @@ function App() {
             <div className="main-container">
               <div className="column-left">
                 {/* Left column */}
+                <SmartHome />
               </div>
               <div className="column-center">
                 {settings && settings.modules.search.visible && <SearchBar />}

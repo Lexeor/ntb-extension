@@ -13,8 +13,16 @@ canvas {
 }
 
 :root {
+  /* Colors */
   --clr-primary: white;
   --clr-primary-opac: rgba(255,255,255, .5);
+  --clr-gadget-bg: rgba(0,0,0,.3);
+  --clr-text: whitesmoke;
+
+  /* Borders */
+  --br-med: 1.5em;
+
+  /* Fonts */
 }
 
 body {
@@ -220,7 +228,7 @@ body {
 .weather-container {
   position: relative;
   font-family: 'Exo 2', sans-serif;
-  background-color: rgba(0,0,0,.3);
+  background-color: var(--clr-gadget-bg);
   border-radius: 25px;
   width: 100%;
   max-width: 400px;
@@ -606,4 +614,16 @@ body {
 
 .popup-controls button:hover {
   background-color: rgba(255,255,255,.1);
+}
+
+/* SmartHome */
+
+.smarthome-container {
+  background-color: var(--clr-gadget-bg);
+  color: var(--clr-text);
+  border-radius: var(--br-med);
+  padding: 1em;
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
 }
