@@ -619,6 +619,7 @@ body {
 /* SmartHome */
 
 .smarthome-container {
+  font-family: 'Exo 2', sans-serif;
   background-color: var(--clr-gadget-bg);
   color: var(--clr-text);
   border-radius: var(--br-med);
@@ -626,4 +627,5 @@ body {
   margin-top: 2em;
   display: flex;
   flex-direction: column;
+  width: 80%;
 }

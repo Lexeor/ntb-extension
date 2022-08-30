@@ -25,9 +25,11 @@ function SmartHome() {
     return (
         <div className="smarthome-container">
             SmartHome
-            <span><i className="ri-temp-hot-line"></i> {temprature} °C</span>
-            <span><i className="ri-drop-line"></i> {humidity} %</span>
-            <span><i className="ri-battery-line"></i> {battery} %</span>
+            <div className="weather-details">
+              <div className="weather-details-item"><i className="ri-temp-hot-fill"></i> <span>{temprature} °C</span></div>
+              <div className="weather-details-item"><i className="ri-drop-line"></i> <span>{humidity} %</span></div>
+              <div className="weather-details-item"><i className="ri-battery-line"></i> <span>{battery} %</span></div>
+            </div>
         </div>
     )
 }
