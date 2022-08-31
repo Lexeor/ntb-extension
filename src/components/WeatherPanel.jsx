@@ -12,7 +12,6 @@ function WeatherPanel() {
         .then(data => {
           data['received'] = new Date().toISOString();
           localStorage.setItem('weather', JSON.stringify(data));
-          console.log(data);
           setWeatherCache(data);
         })
         .catch(err => console.log(err));
@@ -31,7 +30,6 @@ function WeatherPanel() {
     const timePassed = dateNow - dateRes;
 
     if(timePassed >= 360 * 1000) {
-      console.log('time passed: ', timePassed);
       return true;
     }
     return false;
@@ -43,7 +41,6 @@ function WeatherPanel() {
       let now = new Date();
       let sunrise = new Date(0);
       sunrise.setUTCSeconds(`${weatherCache.sys.sunrise}`);
-      //console.log('sunrise', sunrise);
 
       let sunset = new Date(0);
       sunset.setUTCSeconds(`${weatherCache.sys.sunset}`);

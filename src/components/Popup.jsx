@@ -20,7 +20,6 @@ function Popup(props) {
 
     function handleOkClick() {
         if(!context.editedFavObj) {
-            console.log(context.favs);
             context.addToFavourites(
                 // Object template { id, url, name }
                 {

@@ -18,7 +18,6 @@ function FavouritesItem(props) {
     }
 
     function handleSettingsClick() {
-        //console.log('settings click');
         setShowSettingsMenu(prev => !prev);
         setShowSettingsButton(false);
     }
