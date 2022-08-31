@@ -15,11 +15,13 @@ canvas {
 :root {
   /* Colors */
   --clr-primary: white;
-  --clr-primary-opac: rgba(255,255,255, .5);
+  --clr-primary-shaded: rgba(255,255,255, .5);
   --clr-gadget-bg: rgba(0,0,0,.3);
+  --clr-gadget-bg-light: rgba(255,255,255,.08);
   --clr-text: whitesmoke;
 
   /* Borders */
+  --br-light: .5em;
   --br-med: 1.5em;
 
   /* Fonts */
@@ -291,7 +293,7 @@ body {
 
 .weather-details-item i {
   font-size: 1.2rem;
-  color: var(--clr-primary-opac);
+  color: var(--clr-primary-shaded);
   margin-right: 10px;
   align-self: center;
 }
@@ -628,4 +630,52 @@ body {
   display: flex;
   flex-direction: column;
   width: 80%;
+}
+
+.smarthome-item {
+  margin: .3em 0;
+  background-color: var(--clr-gadget-bg);
+  border-radius: var(--br-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.sh-item-body {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  align-items: center;
+  padding: .4em;
+  background-color: var(--clr-gadget-bg-light);
+  border-radius: var(--br-light);
+}
+
+.sh-item-properties {
+  display: flex;
+  justify-content: center;
+  margin: .2em 0;
+  gap: 10px;
+}
+
+.sh-item-icon {
+  font-size: 2em;
+}
+
+.sh-item-icon.on {
+  color: yellow;
+  text-shadow: 0 0 3px yellow;
+}
+
+.sh-property {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: .2em;
+  font-size: .8em;
+  font-weight: 300;
+}
+
+.sh-property-icon {
+  font-size: 1em;
+  color: var(--clr-primary-shaded);
 }

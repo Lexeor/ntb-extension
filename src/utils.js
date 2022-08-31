@@ -6,7 +6,7 @@ const days = [
     'Четверг',
     'Пятница',
     'Суббота'
-];
+]
 
 const months = [
     'января',
@@ -39,7 +39,31 @@ const defaultSettings = {
         }
     },
     colors: []
-};
+}
+
+const smarthomeDevicesDict = {
+    "devices.types.light": "ri-lightbulb-line",
+    "devices.types.socket": "ri-shut-down-line",
+    "devices.types.humidifier": "ri-drop-line",
+    "devices.types.sensor": "ri-sensor-line",
+    "temperature": "ri-temp-hot-fill",
+    "humidity": "ri-drop-fill",
+    "battery_level": "ri-battery-fill",
+    "voltage": "ri-flashlight-fill",
+    "power": "ri-flashlight-fill",
+    "amperage": "ri-flashlight-fill"
+}
+
+const measurementsDict = {
+    "temperature": "°C",
+    "humidity": "%",
+    "battery_level": "%",
+    "voltage": "V",
+    "power": "W",
+    "amperage": "A"
+}
+
+// Time & Date
 
 function getFormattedTime(dateObj) {
     return `${('0'+dateObj.getHours()).slice(-2)}:${('0'+dateObj.getMinutes()).slice(-2)}`;
@@ -56,10 +80,6 @@ function getFormattedDateAndTime(dateObj) {
     return `${day}.${month}.${year} ${hour}:${minute}`;
 }
 
-function getCompactLabel(label) {
-    return label.length > 16 ? label.substring(0, 14) + "..." : label;
-}
-
 function getCurrentTimeOfDay() {
     const now = new Date();
     if(now.getHours() > 4) {
@@ -73,4 +93,16 @@ function getCurrentTimeOfDay() {
     return 'night';
 }
 
-export {days, months, defaultSettings, getFormattedTime, getFormattedDateAndTime, getCompactLabel, getCurrentTimeOfDay}
+// Numbers
+
+function getTwoDigitFloat() {
+
+}
+
+// Text
+
+function getCompactLabel(label) {
+    return label.length > 16 ? label.substring(0, 14) + "..." : label;
+}
+
+export {days, months, defaultSettings, smarthomeDevicesDict, measurementsDict, getFormattedTime, getFormattedDateAndTime, getCompactLabel, getCurrentTimeOfDay}
