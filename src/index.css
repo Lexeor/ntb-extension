@@ -630,6 +630,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 80%;
+  min-width: 300px;
 }
 
 .smarthome-item {
@@ -663,7 +664,7 @@ body {
 
 .sh-item-icon.on {
   color: yellow;
-  text-shadow: 0 0 3px yellow;
+  text-shadow: 0 0 5px rgba(255, 255, 0, .4);
 }
 
 .sh-property {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { smarthomeDevicesDict, measurementsDict } from '../utils';
+import SmartHomeItem from './SmartHomeItem';
 
 function SmartHome() {
     const [temprature, setTemprature] = useState(0);
@@ -31,50 +32,8 @@ function SmartHome() {
             .catch(err => console.log(err));
     }, []);
 
-    function getDeviceProperties(device) {
-        const propertiesCollection = device.properties?.map(item => {
-            const type = smarthomeDevicesDict[item.state.instance];
-
-            return (
-            <div key={item.state.value} className="sh-property">
-                {/* Item property icon */}
-                <i className={`sh-property-icon ${type ? type : 'ri-question-mark'}`}></i>
-                {/* Item property value */}
-                {parseFloat(item.state.value) ? item.state.value.toFixed(2) : item.state.value}
-                {/* Item property measurement value */}
-                {measurementsDict[item.state.instance]}
-            </div>
-            )
-        });
-
-        return propertiesCollection;
-    }
-
     const devicesCollection = devices?.map(item => {
-        const type = smarthomeDevicesDict[item.type];
-        const onOffCapability = item.capabilities.find(cap => cap.type === "devices.capabilities.on_off");
-        let isOn = false;
-
-        if(onOffCapability && onOffCapability.state) {
-            isOn = onOffCapability.state.value;
-        }
-
-        return (
-            <div key={item.id} className="smarthome-item">
-                {/* Smarthome item body */}
-                <div className="sh-item-body">
-                    <i className={`sh-item-icon ${type ? type : 'ri-question-mark'} ${isOn ? 'on' : ''}`}></i>
-                    <span>{item.name}</span>
-                </div>
-
-                {/* Smarthome item properties */}
-                {item.properties.length > 0 
-                && 
-                <div className="sh-item-properties">
-                    {getDeviceProperties(item)}
-                </div>
-                }
-            </div>)
+        return <SmartHomeItem key={item.id} item={item} />;
     });
 
     return (
