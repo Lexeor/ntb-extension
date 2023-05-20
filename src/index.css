@@ -15,8 +15,8 @@ canvas {
 :root {
   /* Colors */
   --clr-primary: white;
-  --clr-primary-opac: rgba(255,255,255, .5);
-  --clr-gadget-bg: rgba(0,0,0,.3);
+  --clr-primary-opac: rgba(255, 255, 255, 0.5);
+  --clr-gadget-bg: rgba(0, 0, 0, 0.3);
   --clr-text: whitesmoke;
 
   /* Borders */
@@ -145,7 +145,7 @@ body {
   font-size: 1.4em;
   margin: auto;
   color: lightgray;
-  opacity: .7;
+  opacity: 0.7;
   cursor: pointer;
 }
 
@@ -161,15 +161,20 @@ body {
   font-size: 1.2rem;
   margin: auto;
   color: lightgray;
-  opacity: .7;
+  opacity: 0.7;
   cursor: pointer;
 }
 
 .google-icon.active {
-  background: conic-gradient(from -45deg at 34% 50%,
-    #E94235 0deg 110deg, #4285F4 110deg 180deg, #34A853 180deg 270deg,#FABB05 270deg 360deg);
-	background-clip: text;
-	-webkit-text-fill-color: transparent;
+  background: conic-gradient(
+    from -45deg at 34% 50%,
+    #e94235 0deg 110deg,
+    #4285f4 110deg 180deg,
+    #34a853 180deg 270deg,
+    #fabb05 270deg 360deg
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .google-icon:hover {
@@ -178,7 +183,7 @@ body {
 
 .search-input {
   font: 16px arial, sans-serif;
-  padding: .6em 2.1em;
+  padding: 0.6em 2.1em;
   border-radius: 999px;
   border: 0;
   width: 100%;
@@ -192,7 +197,7 @@ body {
   background-size: 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 1px 1px rgba(0,0,0,.5));
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
   margin: 0;
 }
 
@@ -204,7 +209,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Exo 2', sans-serif;
+  font-family: "Exo 2", sans-serif;
   font-weight: 700;
   font-size: 4rem;
   user-select: none; /* supported by Chrome and Opera */
@@ -216,7 +221,7 @@ body {
 }
 
 .row-clock {
-  font-family: 'Exo', sans-serif;
+  font-family: "Exo", sans-serif;
 }
 
 .row-date {
@@ -227,7 +232,7 @@ body {
 
 .weather-container {
   position: relative;
-  font-family: 'Exo 2', sans-serif;
+  font-family: "Exo 2", sans-serif;
   background-color: var(--clr-gadget-bg);
   border-radius: 25px;
   width: 100%;
@@ -249,12 +254,12 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 160px;
-  grid-template-areas: 
+  grid-template-areas:
     "image image"
     "weather weather"
     "details temp";
-    justify-content: center;
-    align-items: flex-end;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 .weather-image {
@@ -270,7 +275,7 @@ body {
 
 .weather-type {
   position: absolute;
-  top: -25px;
+  top: -13px;
   grid-area: weather;
   justify-self: center;
 }
@@ -286,7 +291,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 
 .weather-details-item i {
@@ -305,15 +310,15 @@ body {
 }
 
 .weather-small {
-  font-size: .8rem;
-  opacity: .7;
+  font-size: 0.8rem;
+  opacity: 0.7;
 }
 
 .weather-updated {
   position: absolute;
   bottom: 10px;
   right: 20px;
-  color: rgba(255,255,255,.2);
+  color: rgba(255, 255, 255, 0.2);
   font-size: x-small;
   cursor: default;
 }
@@ -325,7 +330,7 @@ body {
 /* Settings Bar */
 
 .btn-settings {
-  opacity: .5;
+  opacity: 0.5;
   /* animation: spin-back 1s, opacity 1s; */
   transition: transform 1s;
 }
@@ -363,17 +368,17 @@ body {
   flex-direction: row-reverse;
   margin: 5px;
   border-radius: 15px;
-  transition: opacity .5s;
+  transition: opacity 0.5s;
 }
 
 .settings-bar.active {
-  background-color: rgba(0,0,0,.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .settings-item {
   display: none;
   opacity: 0;
-  transition: opacity .5s;
+  transition: opacity 0.5s;
 }
 
 .settings-item.active {
@@ -382,11 +387,11 @@ body {
 }
 
 .settings-item.off {
-  color: rgba(255, 255, 255, .3);
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .settings-item.off:hover {
-  color: rgba(255, 255, 255, .7);
+  color: rgba(255, 255, 255, 0.7);
   color: #fff533;
 }
 
@@ -406,7 +411,7 @@ body {
 .favourites-container .btn-new-fav,
 .btn-fav-item-menu {
   all: unset;
-  font-family: 'Exo 2', sans-serif;
+  font-family: "Exo 2", sans-serif;
 }
 
 .btn-fav-item-menu span {
@@ -428,7 +433,7 @@ body {
   right: 0;
   display: flex;
   align-items: center;
-  color: rgba(255, 255, 255, .3);
+  color: rgba(255, 255, 255, 0.3);
   background-color: transparent;
   border: 0;
   border-radius: 0 15px 0 15px;
@@ -438,7 +443,7 @@ body {
 }
 
 .fav-wrapper .btn-fav-settings:hover {
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
 }
 
@@ -454,18 +459,18 @@ body {
   color: whitesmoke;
   width: 120px;
   height: 100px;
-  background-color: rgba(0,0,0,.1);
-  transition: background-color .3s;
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
   border: 0;
   border-radius: 15px;
 }
 
 .favourites-card.new {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .favourites-card:hover {
-  background-color: rgba(0,0,0,.3);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .favourites-card img {
@@ -478,7 +483,7 @@ body {
 }
 
 .favourites-card img:before {
-  content: ' ';
+  content: " ";
   display: block;
   position: absolute;
   height: 60px;
@@ -492,7 +497,7 @@ body {
 
 .favourites-card i {
   font-size: 4rem;
-  color:rgba(255, 255, 255, .3)
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .fav-item-menu {
@@ -501,7 +506,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 15px;
   overflow: hidden;
   display: flex;
@@ -513,7 +518,7 @@ body {
 }
 
 .btn-fav-item-menu {
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, 0.5);
   color: whitesmoke;
   height: 50%;
   display: flex;
@@ -524,19 +529,19 @@ body {
 }
 
 .btn-fav-item-menu:hover {
-  background-color: rgba(0,0,0,.8);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .btn-fav-item-menu i {
   font-size: larger;
   font-weight: lighter;
-  margin: 0 .5em;
+  margin: 0 0.5em;
 }
 
 /* Popup */
 
 :root {
-  --input-secondary-color: rgba(255,255,255,.5);
+  --input-secondary-color: rgba(255, 255, 255, 0.5);
 }
 
 .blurred {
@@ -546,7 +551,7 @@ body {
 .popup-fade {
   position: absolute;
   z-index: 999;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
   display: flex;
@@ -565,7 +570,7 @@ body {
   border-radius: 6px;
   display: flex;
   flex-direction: column;
-  font-family: 'Exo 2', sans-serif;
+  font-family: "Exo 2", sans-serif;
   min-width: 300px;
 }
 
@@ -579,7 +584,7 @@ body {
 }
 
 .popup-body label {
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: var(--input-secondary-color);
 }
 
@@ -603,17 +608,17 @@ body {
 }
 
 .popup-controls button {
-  font-family: 'Exo 2', sans-serif;
+  font-family: "Exo 2", sans-serif;
   background-color: transparent;
   border-radius: 6px;
   color: whitesmoke;
   border: none;
-  padding: .5em 1em;
+  padding: 0.5em 1em;
   cursor: pointer;
 }
 
 .popup-controls button:hover {
-  background-color: rgba(255,255,255,.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* SmartHome */
