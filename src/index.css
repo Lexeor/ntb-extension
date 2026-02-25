@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *,
 *::before,
 *::after {
@@ -13,16 +17,12 @@ canvas {
 }
 
 :root {
-  /* Colors */
   --clr-primary: white;
   --clr-primary-opac: rgba(255, 255, 255, 0.5);
   --clr-gadget-bg: rgba(0, 0, 0, 0.3);
   --clr-text: whitesmoke;
-
-  /* Borders */
   --br-med: 1.5em;
-
-  /* Fonts */
+  --input-secondary-color: rgba(255, 255, 255, 0.5);
 }
 
 body {
@@ -35,6 +35,21 @@ body {
   position: relative;
 }
 
+/* Trianglify background */
+.App > div:first-child {
+  position: absolute;
+  inset: 0;
+  z-index: -999;
+  overflow: hidden;
+}
+
+.App > div:first-child svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Legacy selector for any stray svg/canvas */
 .App svg,
 .App canvas {
   position: absolute;
@@ -45,6 +60,11 @@ body {
 }
 
 /* Layout */
+
+.content-wrapper {
+  width: 100%;
+  height: 100vh;
+}
 
 .main-container {
   display: flex;
@@ -66,7 +86,6 @@ body {
   flex-direction: column;
   align-items: center;
   width: 20%;
-  /* background-color: lightblue; */
 }
 
 .column-center {
@@ -94,7 +113,7 @@ body {
   }
 }
 
-/* Search section */
+/* Search */
 
 .search-container {
   display: flex;
@@ -189,7 +208,7 @@ body {
   width: 100%;
 }
 
-/* Clock section */
+/* Clock */
 
 #time h1,
 #time p {
@@ -209,19 +228,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Exo 2", sans-serif;
+  font-family: 'Exo 2', sans-serif;
   font-weight: 700;
   font-size: 4rem;
-  user-select: none; /* supported by Chrome and Opera */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none;
+  user-select: none;
   margin-bottom: 3rem;
 }
 
 .row-clock {
-  font-family: "Exo", sans-serif;
+  font-family: 'Exo', sans-serif;
 }
 
 .row-date {
@@ -232,7 +247,7 @@ body {
 
 .weather-container {
   position: relative;
-  font-family: "Exo 2", sans-serif;
+  font-family: 'Exo 2', sans-serif;
   background-color: var(--clr-gadget-bg);
   border-radius: 25px;
   width: 100%;
@@ -255,9 +270,9 @@ body {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 160px;
   grid-template-areas:
-    "image image"
-    "weather weather"
-    "details temp";
+    'image image'
+    'weather weather'
+    'details temp';
   justify-content: center;
   align-items: flex-end;
 }
@@ -309,11 +324,6 @@ body {
   grid-area: temp;
 }
 
-.weather-small {
-  font-size: 0.8rem;
-  opacity: 0.7;
-}
-
 .weather-updated {
   position: absolute;
   bottom: 10px;
@@ -331,7 +341,6 @@ body {
 
 .btn-settings {
   opacity: 0.5;
-  /* animation: spin-back 1s, opacity 1s; */
   transition: transform 1s;
 }
 
@@ -391,7 +400,6 @@ body {
 }
 
 .settings-item.off:hover {
-  color: rgba(255, 255, 255, 0.7);
   color: #fff533;
 }
 
@@ -411,7 +419,7 @@ body {
 .favourites-container .btn-new-fav,
 .btn-fav-item-menu {
   all: unset;
-  font-family: "Exo 2", sans-serif;
+  font-family: 'Exo 2', sans-serif;
 }
 
 .btn-fav-item-menu span {
@@ -482,15 +490,6 @@ body {
   overflow: hidden;
 }
 
-.favourites-card img:before {
-  content: " ";
-  display: block;
-  position: absolute;
-  height: 60px;
-  width: 60px;
-  background-image: url(/public/images/global-line.png);
-}
-
 .favourites-card p {
   margin: 0;
 }
@@ -526,6 +525,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   z-index: 10;
+  cursor: pointer;
 }
 
 .btn-fav-item-menu:hover {
@@ -539,10 +539,6 @@ body {
 }
 
 /* Popup */
-
-:root {
-  --input-secondary-color: rgba(255, 255, 255, 0.5);
-}
 
 .blurred {
   filter: blur(5px);
@@ -570,7 +566,7 @@ body {
   border-radius: 6px;
   display: flex;
   flex-direction: column;
-  font-family: "Exo 2", sans-serif;
+  font-family: 'Exo 2', sans-serif;
   min-width: 300px;
 }
 
@@ -607,8 +603,9 @@ body {
   gap: 5px;
 }
 
-.popup-controls button {
-  font-family: "Exo 2", sans-serif;
+.popup-controls button,
+.popup-button {
+  font-family: 'Exo 2', sans-serif;
   background-color: transparent;
   border-radius: 6px;
   color: whitesmoke;
@@ -617,7 +614,8 @@ body {
   cursor: pointer;
 }
 
-.popup-controls button:hover {
+.popup-controls button:hover,
+.popup-button:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -631,4 +629,5 @@ body {
   margin-top: 2em;
   display: flex;
   flex-direction: column;
+  gap: 0.5em;
 }
