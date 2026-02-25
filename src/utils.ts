@@ -31,6 +31,7 @@ export const defaultSettings: Settings = {
     clock: { visible: true },
     favourites: { visible: true },
     weather: { visible: true },
+    epl: { visible: true },
   },
   colors: [],
 }

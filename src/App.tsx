@@ -6,6 +6,7 @@ import Favourites from './components/Favourites'
 import WeatherPanel from './components/WeatherPanel'
 import SettingsBar from './components/SettingsBar'
 import SmartHome from './components/SmartHome'
+import EPLWidget from './components/EPLWidget'
 import Popup from './components/Popup'
 import { defaultSettings, getCurrentTimeOfDay } from './utils'
 import type { Settings } from './types'
@@ -29,7 +30,8 @@ function App() {
         setSettings((data?.settings as Settings) ?? defaultSettings)
       })
     } else {
-      setSettings(defaultSettings)
+      const saved = localStorage.getItem('settings')
+      setSettings(saved ? (JSON.parse(saved) as Settings) : defaultSettings)
     }
   }, [])
 
@@ -38,6 +40,8 @@ function App() {
     if (!settings) return
     if (import.meta.env.PROD && typeof chrome !== 'undefined' && chrome.storage) {
       chrome.storage.sync.set({ settings })
+    } else {
+      localStorage.setItem('settings', JSON.stringify(settings))
     }
   }, [settings])
 
@@ -77,19 +81,28 @@ function App() {
     <div className="App">
       <Popup isPopupShowed={isPopupShowed} switchPopup={switchPopup} />
       <div ref={bgRef} />
-      <div className={`content-wrapper${isPopupShowed ? ' blurred' : ''}`}>
-        <div className="main-container">
-          <div className="column-left" />
-          <div className="column-center">
+      <div className={`w-full h-screen${isPopupShowed ? ' blurred' : ''}`}>
+        <div className="flex h-full">
+
+          {/* Left Bar */}
+          <aside className="hidden min-[930px]:flex w-[420px] shrink-0 flex-col items-center justify-start mt-[64px] p-4">
+            {(settings?.modules.epl?.visible ?? true) && <EPLWidget />}
+          </aside>
+
+          {/* Center */}
+          <main className="flex-1 min-w-0 flex flex-col items-center justify-center text-[#666666]">
             {settings?.modules.search.visible && <SearchBar />}
             {settings?.modules.favourites.visible && <Favourites switchPopup={switchPopup} />}
             {settings?.modules.clock.visible && <TimeDate />}
-          </div>
-          <div className="column-right">
+          </main>
+
+          {/* Right bar */}
+          <aside className="hidden min-[930px]:flex w-[420px] shrink-0 flex-col items-end p-4">
             <SettingsBar settings={settings} handleSettingToggle={handleSettingToggle} />
             {settings?.modules.weather.visible && <WeatherPanel />}
             <SmartHome />
-          </div>
+          </aside>
+
         </div>
       </div>
     </div>

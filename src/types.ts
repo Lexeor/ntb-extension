@@ -14,6 +14,7 @@ export interface Settings {
     clock: ModuleSettings
     favourites: ModuleSettings
     weather: ModuleSettings
+    epl: ModuleSettings
   }
   colors: string[]
 }

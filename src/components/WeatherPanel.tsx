@@ -3,6 +3,9 @@ import { getFormattedDateAndTime } from '../utils'
 import type { WeatherData } from '../types'
 
 const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY
+const WEATHER_BASE = import.meta.env.DEV
+  ? '/proxy/weather'
+  : 'https://api.openweathermap.org'
 const UPDATE_INTERVAL_MS = 60 * 60 * 1000
 const CITY_KEY = 'weatherCity'
 const DEFAULT_CITY = 'Baku'
@@ -54,7 +57,7 @@ function WeatherPanel() {
     setWeather(null)
 
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${WEATHER_API_KEY}`
+      `${WEATHER_BASE}/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${WEATHER_API_KEY}`
     )
       .then((res) => {
         if (!res.ok) throw new Error(`${res.status}`)
