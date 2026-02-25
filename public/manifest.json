@@ -5,9 +5,14 @@
   "version": "1.0.0",
   "description": "Just for practicing React App as Chrome Extension",
   "chrome_url_overrides": {
-      "newtab": "index.html"
+    "newtab": "index.html"
   },
   "permissions": [
     "storage"
+  ],
+  "host_permissions": [
+    "https://api.openweathermap.org/*",
+    "https://api.football-data.org/*",
+    "https://crests.football-data.org/*"
   ]
 }

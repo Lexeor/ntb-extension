@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *,
 *::before,
 *::after {
@@ -13,16 +17,12 @@ canvas {
 }
 
 :root {
-  /* Colors */
   --clr-primary: white;
   --clr-primary-opac: rgba(255, 255, 255, 0.5);
   --clr-gadget-bg: rgba(0, 0, 0, 0.3);
   --clr-text: whitesmoke;
-
-  /* Borders */
   --br-med: 1.5em;
-
-  /* Fonts */
+  --input-secondary-color: rgba(255, 255, 255, 0.5);
 }
 
 body {
@@ -33,68 +33,13 @@ body {
 
 .App {
   position: relative;
+  background: linear-gradient(135deg, #111227 0%, #1a2a4a 50%, #0d1b33 100%);
+  min-height: 100vh;
 }
 
-.App svg,
-.App canvas {
-  position: absolute;
-  z-index: -999;
-  display: block;
-  object-fit: cover;
-  object-position: center;
-}
+/* Layout — handled via Tailwind classes in App.tsx */
 
-/* Layout */
-
-.main-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.column-left,
-.column-center,
-.column-right {
-  height: 100%;
-}
-
-.column-left,
-.column-right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 20%;
-  /* background-color: lightblue; */
-}
-
-.column-center {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #666666;
-}
-
-.column-right {
-  min-width: 400px;
-  padding: 0 1em;
-  align-items: flex-end;
-}
-
-@media (max-width: 930px) {
-  .column-left,
-  .column-right {
-    display: none;
-  }
-
-  .column-center {
-    width: 90%;
-  }
-}
-
-/* Search section */
+/* Search */
 
 .search-container {
   display: flex;
@@ -189,7 +134,7 @@ body {
   width: 100%;
 }
 
-/* Clock section */
+/* Clock */
 
 #time h1,
 #time p {
@@ -209,19 +154,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Exo 2", sans-serif;
+  font-family: 'Exo 2', sans-serif;
   font-weight: 700;
   font-size: 4rem;
-  user-select: none; /* supported by Chrome and Opera */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none;
+  user-select: none;
   margin-bottom: 3rem;
 }
 
 .row-clock {
-  font-family: "Exo", sans-serif;
+  font-family: 'Exo', sans-serif;
 }
 
 .row-date {
@@ -232,9 +173,9 @@ body {
 
 .weather-container {
   position: relative;
-  font-family: "Exo 2", sans-serif;
+  font-family: 'Exo 2', sans-serif;
   background-color: var(--clr-gadget-bg);
-  border-radius: 25px;
+  border-radius: 20px;
   width: 100%;
   max-width: 400px;
   min-height: 350px;
@@ -249,15 +190,68 @@ body {
   font-size: 1rem;
 }
 
+.weather-city-btn {
+  all: unset;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+  transition: background-color 0.2s;
+}
+
+.weather-city-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.weather-city-btn:hover .weather-city-edit-icon {
+  opacity: 1;
+}
+
+.weather-city-edit-icon {
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.weather-city-edit {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.weather-city-input {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  color: whitesmoke;
+  font-size: 1rem;
+  font-family: 'Exo 2', sans-serif;
+  padding: 0 2px 1px;
+  width: 120px;
+  outline: none;
+}
+
+.weather-status {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
 .weather-body {
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 160px;
   grid-template-areas:
-    "image image"
-    "weather weather"
-    "details temp";
+    'image image'
+    'weather weather'
+    'details temp';
   justify-content: center;
   align-items: flex-end;
 }
@@ -309,11 +303,6 @@ body {
   grid-area: temp;
 }
 
-.weather-small {
-  font-size: 0.8rem;
-  opacity: 0.7;
-}
-
 .weather-updated {
   position: absolute;
   bottom: 10px;
@@ -331,7 +320,6 @@ body {
 
 .btn-settings {
   opacity: 0.5;
-  /* animation: spin-back 1s, opacity 1s; */
   transition: transform 1s;
 }
 
@@ -391,7 +379,6 @@ body {
 }
 
 .settings-item.off:hover {
-  color: rgba(255, 255, 255, 0.7);
   color: #fff533;
 }
 
@@ -411,7 +398,7 @@ body {
 .favourites-container .btn-new-fav,
 .btn-fav-item-menu {
   all: unset;
-  font-family: "Exo 2", sans-serif;
+  font-family: 'Exo 2', sans-serif;
 }
 
 .btn-fav-item-menu span {
@@ -482,15 +469,6 @@ body {
   overflow: hidden;
 }
 
-.favourites-card img:before {
-  content: " ";
-  display: block;
-  position: absolute;
-  height: 60px;
-  width: 60px;
-  background-image: url(/public/images/global-line.png);
-}
-
 .favourites-card p {
   margin: 0;
 }
@@ -526,6 +504,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   z-index: 10;
+  cursor: pointer;
 }
 
 .btn-fav-item-menu:hover {
@@ -539,10 +518,6 @@ body {
 }
 
 /* Popup */
-
-:root {
-  --input-secondary-color: rgba(255, 255, 255, 0.5);
-}
 
 .blurred {
   filter: blur(5px);
@@ -570,7 +545,7 @@ body {
   border-radius: 6px;
   display: flex;
   flex-direction: column;
-  font-family: "Exo 2", sans-serif;
+  font-family: 'Exo 2', sans-serif;
   min-width: 300px;
 }
 
@@ -607,8 +582,9 @@ body {
   gap: 5px;
 }
 
-.popup-controls button {
-  font-family: "Exo 2", sans-serif;
+.popup-controls button,
+.popup-button {
+  font-family: 'Exo 2', sans-serif;
   background-color: transparent;
   border-radius: 6px;
   color: whitesmoke;
@@ -617,8 +593,194 @@ body {
   cursor: pointer;
 }
 
-.popup-controls button:hover {
+.popup-controls button:hover,
+.popup-button:hover {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* EPL Widget */
+
+.epl-container {
+  position: relative;
+  overflow: hidden;
+  font-family: 'Exo 2', sans-serif;
+  background-color: var(--clr-gadget-bg);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  padding: 1em;
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  margin-top: 1em;
+}
+
+.epl-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 2em;
+}
+
+.epl-footer {
+  min-height: 2em;
+}
+
+.epl-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 2em;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.epl-venue {
+  font-size: 0.7rem;
+  opacity: 0.65;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+.epl-team-btn {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  opacity: 0.3;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+.epl-team-btn:hover {
+  opacity: 0.8;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.epl-team-select {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: whitesmoke;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 0.8rem;
+  font-family: 'Exo 2', sans-serif;
+  outline: none;
+  cursor: pointer;
+}
+
+.epl-match {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0.25em 0;
+}
+
+.epl-team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.epl-crest-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.epl-flare {
+  position: absolute;
+  width: 55%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.3;
+  pointer-events: none;
+  bottom: -20%;
+}
+
+.epl-flare--left {
+  left: -10%;
+}
+
+.epl-flare--right {
+  right: -10%;
+}
+
+.epl-crest {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.epl-team-name {
+  font-size: 0.75rem;
+  text-align: center;
+  opacity: 0.85;
+  max-width: 90px;
+}
+
+.epl-countdown {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.epl-countdown-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1em;
+}
+
+.epl-countdown-value {
+  font-family: 'Exo', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(#eee, #c2c2c2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+}
+
+.epl-countdown-label {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  opacity: 0.45;
+}
+
+.epl-date {
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.epl-competition {
+  text-align: center;
+  font-size: 0.65rem;
+  opacity: 0.35;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.epl-status {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.85rem;
+  padding: 0.5em 0;
 }
 
 /* SmartHome */
@@ -631,4 +793,5 @@ body {
   margin-top: 2em;
   display: flex;
   flex-direction: column;
+  gap: 0.5em;
 }
