@@ -75,7 +75,7 @@ function App() {
           <aside className="hidden min-[930px]:flex w-[420px] shrink-0 flex-col items-end p-4">
             <SettingsBar settings={settings} handleSettingToggle={handleSettingToggle} />
             {settings?.modules.weather.visible && <WeatherPanel />}
-            <SmartHome />
+            {/*<SmartHome />*/}
           </aside>
 
         </div>

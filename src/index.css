@@ -624,7 +624,7 @@ body {
 }
 
 .epl-footer {
-  height: 2em;
+  min-height: 2em;
 }
 
 .epl-title {

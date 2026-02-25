@@ -251,7 +251,7 @@ function EPLWidget() {
               <span className="epl-team-name">{match.awayTeam.shortName}</span>
             </div>
           </div>
-          <div className="epl-footer ">
+          <div className="epl-footer">
             <div className="epl-date">{formatMatchDate(match.utcDate)}</div>
             <div className="epl-competition">{match.competition.name}</div>
           </div>
