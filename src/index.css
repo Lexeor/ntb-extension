@@ -264,6 +264,59 @@ body {
   font-size: 1rem;
 }
 
+.weather-city-btn {
+  all: unset;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+  transition: background-color 0.2s;
+}
+
+.weather-city-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.weather-city-btn:hover .weather-city-edit-icon {
+  opacity: 1;
+}
+
+.weather-city-edit-icon {
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.weather-city-edit {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.weather-city-input {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  color: whitesmoke;
+  font-size: 1rem;
+  font-family: 'Exo 2', sans-serif;
+  padding: 0 2px 1px;
+  width: 120px;
+  outline: none;
+}
+
+.weather-status {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
 .weather-body {
   position: relative;
   display: grid;

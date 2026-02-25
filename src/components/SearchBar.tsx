@@ -13,11 +13,9 @@ function SearchBar() {
 
   function redirect(val: string, engine?: SearchEngine) {
     const active = engine ?? searchEngine
-    const url =
-      active === 'youtube'
+    window.location.href = active === 'youtube'
         ? `https://www.youtube.com/results?search_query=${encodeURIComponent(val)}`
-        : `https://www.google.com/search?q=${encodeURIComponent(val)}`
-    window.location.href = url
+        : `https://www.google.com/search?q=${encodeURIComponent(val)}`;
   }
 
   function handleEngineClick(engine: SearchEngine) {
