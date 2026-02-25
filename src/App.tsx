@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
-import Trianglify from 'trianglify'
+import { useState, useEffect } from 'react'
 import TimeDate from './components/TimeDate'
 import SearchBar from './components/SearchBar'
 import Favourites from './components/Favourites'
@@ -8,20 +7,12 @@ import SettingsBar from './components/SettingsBar'
 import SmartHome from './components/SmartHome'
 import EPLWidget from './components/EPLWidget'
 import Popup from './components/Popup'
-import { defaultSettings, getCurrentTimeOfDay } from './utils'
+import { defaultSettings } from './utils'
 import type { Settings } from './types'
-
-const colorSchemes = {
-  morning: ['#EEEEEE', '#173679', '#4888C8', '#FED500'],
-  day: ['#4888C8', '#173679', '#4888C8', '#7FC5DC'],
-  evening: ['#EEEEEE', '#173679', '#4888C8', '#FED500'],
-  night: ['#111227', '#111227', '#272652', '#2E457D', '#82A0B9'],
-}
 
 function App() {
   const [settings, setSettings] = useState<Settings | undefined>()
   const [isPopupShowed, setIsPopupShowed] = useState(false)
-  const bgRef = useRef<HTMLDivElement>(null)
 
   // Load settings
   useEffect(() => {
@@ -45,21 +36,6 @@ function App() {
     }
   }, [settings])
 
-  // Render trianglify background
-  useEffect(() => {
-    if (!bgRef.current) return
-    const scheme = colorSchemes[getCurrentTimeOfDay()]
-    const pattern = Trianglify({
-      width: window.screen.width,
-      height: window.screen.height,
-      cellSize: 100,
-      xColors: [scheme[0]],
-      yColors: scheme.slice(1),
-    })
-    bgRef.current.innerHTML = ''
-    bgRef.current.appendChild(pattern.toSVG())
-  }, [])
-
   function handleSettingToggle(name: keyof Settings['modules']) {
     setSettings((prev) => {
       if (!prev) return prev
@@ -79,8 +55,7 @@ function App() {
 
   return (
     <div className="App">
-      <Popup isPopupShowed={isPopupShowed} switchPopup={switchPopup} />
-      <div ref={bgRef} />
+<Popup isPopupShowed={isPopupShowed} switchPopup={switchPopup} />
       <div className={`w-full h-screen${isPopupShowed ? ' blurred' : ''}`}>
         <div className="flex h-full">
 
@@ -90,7 +65,7 @@ function App() {
           </aside>
 
           {/* Center */}
-          <main className="flex-1 min-w-0 flex flex-col items-center justify-center text-[#666666]">
+          <main className="flex-1 min-w-0 flex flex-col items-center justify-start text-[#666666]">
             {settings?.modules.search.visible && <SearchBar />}
             {settings?.modules.favourites.visible && <Favourites switchPopup={switchPopup} />}
             {settings?.modules.clock.visible && <TimeDate />}

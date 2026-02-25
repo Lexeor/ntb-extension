@@ -8,7 +8,7 @@ const WEATHER_BASE = import.meta.env.DEV
   : 'https://api.openweathermap.org'
 const UPDATE_INTERVAL_MS = 60 * 60 * 1000
 const CITY_KEY = 'weatherCity'
-const DEFAULT_CITY = 'Baku'
+const DEFAULT_CITY = 'Herceg Novi, ME'
 
 function cacheKey(city: string) {
   return `weather_${city.toLowerCase()}`

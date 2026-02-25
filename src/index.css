@@ -33,30 +33,8 @@ body {
 
 .App {
   position: relative;
-}
-
-/* Trianglify background */
-.App > div:first-child {
-  position: absolute;
-  inset: 0;
-  z-index: -999;
-  overflow: hidden;
-}
-
-.App > div:first-child svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-/* Legacy selector for any stray svg/canvas */
-.App svg,
-.App canvas {
-  position: absolute;
-  z-index: -999;
-  display: block;
-  object-fit: cover;
-  object-position: center;
+  background: linear-gradient(135deg, #111227 0%, #1a2a4a 50%, #0d1b33 100%);
+  min-height: 100vh;
 }
 
 /* Layout — handled via Tailwind classes in App.tsx */
@@ -197,7 +175,7 @@ body {
   position: relative;
   font-family: 'Exo 2', sans-serif;
   background-color: var(--clr-gadget-bg);
-  border-radius: 25px;
+  border-radius: 20px;
   width: 100%;
   max-width: 400px;
   min-height: 350px;
@@ -627,10 +605,10 @@ body {
   overflow: hidden;
   font-family: 'Exo 2', sans-serif;
   background-color: var(--clr-gadget-bg);
-  border-radius: 25px;
+  border-radius: 20px;
   width: 100%;
   max-width: 400px;
-  padding: 1.5em 1.5em;
+  padding: 1em;
   color: whitesmoke;
   display: flex;
   flex-direction: column;
@@ -741,8 +719,8 @@ body {
 }
 
 .epl-crest {
-  width: 88px;
-  height: 88px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
 }
 
@@ -754,17 +732,35 @@ body {
 }
 
 .epl-countdown {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.epl-countdown-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1em;
+}
+
+.epl-countdown-value {
   font-family: 'Exo', sans-serif;
-  font-size: 2rem;
-  font-weight: 400;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
   background: linear-gradient(#eee, #c2c2c2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
-  line-height: 1;
-  padding: 0 0.5em;
-  white-space: nowrap;
+}
+
+.epl-countdown-label {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  opacity: 0.45;
 }
 
 .epl-date {

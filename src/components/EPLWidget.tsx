@@ -77,18 +77,16 @@ function cacheKey(teamId: number): string {
   return `eplMatch_${teamId}`
 }
 
-/** Returns "2d 14h" if >24h away, or "HH:MM" if <24h away */
-function getCountdown(matchDate: Date): string {
-  const diff = matchDate.getTime() - Date.now()
-  if (diff <= 0) return 'Starting now'
+interface Countdown { days: number; hours: number; minutes: number }
 
+function getCountdown(matchDate: Date): Countdown {
+  const diff = Math.max(0, matchDate.getTime() - Date.now())
   const totalMinutes = Math.floor(diff / 60_000)
-  const days = Math.floor(totalMinutes / 1440)
-  const hours = Math.floor((totalMinutes % 1440) / 60)
-  const minutes = totalMinutes % 60
-
-  if (days > 0) return `${days}d ${hours}h`
-  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
+  return {
+    days:    Math.floor(totalMinutes / 1440),
+    hours:   Math.floor((totalMinutes % 1440) / 60),
+    minutes: totalMinutes % 60,
+  }
 }
 
 function formatMatchDate(dateStr: string): string {
@@ -113,7 +111,7 @@ function EPLWidget() {
     () => Number(localStorage.getItem(TEAM_KEY)) || DEFAULT_TEAM_ID
   )
   const [match, setMatch] = useState<EPLMatch | null>(null)
-  const [countdown, setCountdown] = useState('')
+  const [countdown, setCountdown] = useState<Countdown>({ days: 0, hours: 0, minutes: 0 })
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [selectingTeam, setSelectingTeam] = useState(false)
@@ -234,7 +232,18 @@ function EPLWidget() {
               </div>
               <span className="epl-team-name">{match.homeTeam.shortName}</span>
             </div>
-            <div className="epl-countdown">{countdown}</div>
+            <div className="epl-countdown">
+              {[
+                { value: countdown.days,    label: 'DAYS'    },
+                { value: countdown.hours,   label: 'HOURS'   },
+                { value: countdown.minutes, label: 'MINS' },
+              ].map(({ value, label }) => (
+                <div key={label} className="epl-countdown-col">
+                  <span className="epl-countdown-label">{label}</span>
+                  <span className="epl-countdown-value">{String(value).padStart(2, '0')}</span>
+                </div>
+              ))}
+            </div>
             <div className="epl-team">
               <div className="epl-crest-wrap">
                 <img className="epl-crest" src={match.awayTeam.crest} alt={match.awayTeam.shortName} />
