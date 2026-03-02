@@ -631,7 +631,7 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 2em;
+  top: 1.5em;
   display: flex;
   align-items: center;
   gap: 0.4em;
