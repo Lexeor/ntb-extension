@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getConfig } from '../config';
 import type { WeatherData } from '../types';
 import { getFormattedDateAndTime } from '../utils';
+import NoApiKey from './NoApiKey';
 
 const WEATHER_BASE = import.meta.env.DEV
   ? '/proxy/weather'
@@ -51,7 +52,7 @@ function WeatherPanel() {
 
     const { weatherApiKey } = getConfig();
     if (!weatherApiKey) {
-      setError('No API key — set weatherApiKey in config.json');
+      setError('no_key');
       return;
     }
 
@@ -123,7 +124,9 @@ function WeatherPanel() {
       </div>
 
       {/* Body */}
-      {error ? (
+      {error === 'no_key' ? (
+        <NoApiKey variant="weather" />
+      ) : error ? (
         <div className="weather-status">{error}</div>
       ) : loading || !weather ? (
         <div className="weather-status">Loading…</div>

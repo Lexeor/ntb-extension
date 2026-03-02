@@ -1,5 +1,6 @@
 import { getConfig } from '@/config';
 import React, { useEffect, useState } from 'react';
+import NoApiKey from '../NoApiKey';
 import { API_BASE, DEFAULT_TEAM_ID, EPL_TEAMS, TEAM_COLORS, TEAM_KEY, UPDATE_INTERVAL_MS } from './constants';
 import type { Countdown, EPLMatch } from './types';
 import { cacheKey, formatMatchDate, formatMatchDateShort, getCountdown } from './utils';
@@ -31,7 +32,7 @@ function EPLWidget() {
 
     const { footballApiKey } = getConfig();
     if (!footballApiKey) {
-      setError('Set footballApiKey in config.json');
+      setError('no_key');
       return;
     }
 
@@ -115,7 +116,9 @@ function EPLWidget() {
       </div>
 
       {/* Body */}
-      {error ? (
+      {error === 'no_key' ? (
+        <NoApiKey variant="football" className="epl-status" />
+      ) : error ? (
         <div className="epl-status">{error}</div>
       ) : loading || !match ? (
         <div className="epl-status">Loading…</div>

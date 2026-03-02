@@ -4,7 +4,6 @@ export const defaultSettings: Settings = {
   modules: {
     search: { visible: true },
     clock: { visible: true },
-    favourites: { visible: true },
     weather: { visible: true },
     epl: { visible: true },
   },

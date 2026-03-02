@@ -28,9 +28,6 @@ function SettingsBar({ settings, handleSettingToggle }: SettingsBarProps) {
         <button className={`settings-item${activeClass}${isVisible('weather')}`}>
           <i className="ri-rainy-line" onClick={() => handleSettingToggle('weather')} />
         </button>
-        <button className={`settings-item${activeClass}${isVisible('favourites')}`}>
-          <i className="ri-star-line" onClick={() => handleSettingToggle('favourites')} />
-        </button>
         <button className={`settings-item${activeClass}${isVisible('clock')}`}>
           <i className="ri-time-line" onClick={() => handleSettingToggle('clock')} />
         </button>

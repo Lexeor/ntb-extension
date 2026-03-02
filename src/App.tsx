@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import EPLWidget from './components/EPLWidget';
-import Favourites from './components/Favourites';
 import Popup from './components/Popup';
 import SearchBar from './components/SearchBar';
 import SettingsBar from './components/SettingsBar';
@@ -67,7 +66,6 @@ function App() {
           {/* Center */}
           <main className="flex-1 min-w-0 flex flex-col items-center justify-start text-[#666666]">
             {settings?.modules.search.visible && <SearchBar />}
-            {settings?.modules.favourites.visible && <Favourites switchPopup={switchPopup} />}
             {settings?.modules.clock.visible && <TimeDate />}
           </main>
 

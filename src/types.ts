@@ -12,7 +12,6 @@ export interface Settings {
   modules: {
     search: ModuleSettings
     clock: ModuleSettings
-    favourites: ModuleSettings
     weather: ModuleSettings
     epl: ModuleSettings
   };
