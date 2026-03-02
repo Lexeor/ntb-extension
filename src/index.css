@@ -600,7 +600,7 @@ body {
   width: 100%;
   max-width: 400px;
   min-height: 200px;
-  padding: 1em;
+  padding: 12px;
   color: whitesmoke;
   display: flex;
   flex-direction: column;

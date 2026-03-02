@@ -128,6 +128,13 @@ function EPLWidget() {
             className={`epl-flare epl-flare--${match.homeTeam.id === teamId ? 'left' : 'right'}`}
             style={{ backgroundColor: TEAM_COLORS[teamId] ?? '#ffffff' }}
           />
+          {match.homeTeam.id === teamId ? (
+            <p className={`absolute bottom-10 -rotate-90 -left-11 opacity-10 text-[40px]`}>HOME
+            </p>
+          ) : (
+            <p className={`absolute bottom-10 -rotate-90 -right-9 opacity-10 text-[40px]`}>AWAY
+            </p>
+          )}
           <div className="epl-match">
             <div className="epl-team">
               <div className="epl-crest-wrap">

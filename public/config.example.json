@@ -1,8 +1,4 @@
 {
-  "_help": {
-    "weatherApiKey": "Free registration: https://home.openweathermap.org/users/sign_up",
-    "footballApiKey": "Free registration (required): https://www.football-data.org/client/register"
-  },
-  "weatherApiKey": "YOUR_OPENWEATHERMAP_KEY",
-  "footballApiKey": "YOUR_FOOTBALL_DATA_ORG_KEY"
+  "weatherApiKey": "",
+  "footballApiKey": ""
 }
