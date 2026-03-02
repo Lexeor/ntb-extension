@@ -3,6 +3,7 @@
 .env.local
 .env.*.local
 src/secured.js
+public/config.json
 
 # Dependencies
 node_modules/

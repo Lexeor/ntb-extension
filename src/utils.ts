@@ -1,30 +1,5 @@
 import type { Settings } from './types'
 
-export const days: string[] = [
-  'Воскресенье',
-  'Понедельник',
-  'Вторник',
-  'Среда',
-  'Четверг',
-  'Пятница',
-  'Суббота',
-]
-
-export const months: string[] = [
-  'января',
-  'февраля',
-  'марта',
-  'апреля',
-  'мая',
-  'июня',
-  'июля',
-  'августа',
-  'сентября',
-  'октября',
-  'ноября',
-  'декабря',
-]
-
 export const defaultSettings: Settings = {
   modules: {
     search: { visible: true },
@@ -34,10 +9,6 @@ export const defaultSettings: Settings = {
     epl: { visible: true },
   },
   colors: [],
-}
-
-export function getFormattedTime(dateObj: Date): string {
-  return `${('0' + dateObj.getHours()).slice(-2)}:${('0' + dateObj.getMinutes()).slice(-2)}`
 }
 
 export function getFormattedDateAndTime(dateObj: Date): string {

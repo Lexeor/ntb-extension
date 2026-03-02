@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import type { EPLMatch, Countdown } from './types'
 import {
-  FOOTBALL_API_KEY,
   API_BASE,
   UPDATE_INTERVAL_MS,
   TEAM_KEY,
@@ -10,6 +9,7 @@ import {
   EPL_TEAMS,
 } from './constants'
 import { cacheKey, getCountdown, formatMatchDate, formatMatchDateShort } from './utils'
+import { getConfig } from '../../config'
 
 function EPLWidget() {
   const [teamId, setTeamId] = useState<number>(
@@ -36,15 +36,16 @@ function EPLWidget() {
       }
     }
 
-    if (!FOOTBALL_API_KEY) {
-      setError('Set VITE_FOOTBALL_API_KEY in .env')
+    const { footballApiKey } = getConfig()
+    if (!footballApiKey) {
+      setError('Set footballApiKey in config.json')
       return
     }
 
     setLoading(true)
 
     fetch(`${API_BASE}/teams/${teamId}/matches?status=SCHEDULED&limit=1`, {
-      headers: { 'X-Auth-Token': FOOTBALL_API_KEY },
+      headers: { 'X-Auth-Token': footballApiKey },
     })
       .then((res) => {
         if (!res.ok) throw new Error(`${res.status}`)

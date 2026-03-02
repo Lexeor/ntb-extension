@@ -45,12 +45,14 @@ function SearchBar() {
             }
           }}
         />
-        <button id="btn-google" onClick={() => handleEngineClick('google')}>
-          <i className={`ri-google-fill google-icon${searchEngine === 'google' ? ' active' : ''}`} />
-        </button>
-        <button id="btn-youtube" onClick={() => handleEngineClick('youtube')}>
-          <i className={`ri-youtube-fill youtube-icon${searchEngine === 'youtube' ? ' active' : ''}`} />
-        </button>
+        <div className="absolute right-3 top-0 h-full flex flex-row gap-1 items-center justify-center">
+          <button onClick={() => handleEngineClick('google')}>
+            <i className={`ri-google-fill google-icon${searchEngine === 'google' ? ' active' : ''}`} />
+          </button>
+          <button onClick={() => handleEngineClick('youtube')}>
+            <i className={`ri-youtube-fill youtube-icon${searchEngine === 'youtube' ? ' active' : ''}`} />
+          </button>
+        </div>
       </div>
     </div>
   )

@@ -56,21 +56,12 @@ body {
 }
 
 .search-input-box button {
-  position: absolute;
   display: flex;
   background-color: transparent;
   top: 0;
   border: 0;
   height: 100%;
   font-size: 1rem;
-}
-
-#btn-google {
-  right: 34px;
-}
-
-#btn-youtube {
-  right: 6px;
 }
 
 .search-icon {
@@ -147,7 +138,7 @@ body {
 }
 
 #time h1 {
-  margin: 0 0 -30px 0;
+  margin: 0 0 -24px 0;
 }
 
 #time {

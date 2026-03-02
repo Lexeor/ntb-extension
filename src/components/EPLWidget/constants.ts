@@ -1,4 +1,3 @@
-export const FOOTBALL_API_KEY = import.meta.env.VITE_FOOTBALL_API_KEY
 export const API_BASE = import.meta.env.DEV
   ? '/proxy/football/v4'
   : 'https://api.football-data.org/v4'

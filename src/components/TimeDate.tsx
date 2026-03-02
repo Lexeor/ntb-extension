@@ -1,31 +1,19 @@
-import { useState, useEffect } from 'react'
-import { days, months } from '../utils'
-
-function getFormattedTime(dateObj: Date): string {
-  return `${('0' + dateObj.getHours()).slice(-2)}:${('0' + dateObj.getMinutes()).slice(-2)}`
-}
+import { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
+import 'dayjs/locale/en';
 
 function TimeDate() {
-  const [time, setTime] = useState(() => getFormattedTime(new Date()))
-
-  const now = new Date()
-  const day = days[now.getDay()]
-  const date = now.getDate()
-  const month = months[now.getMonth()]
+  const [now, setNow] = useState(() => dayjs());
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(getFormattedTime(new Date()))
-    }, 1000)
-    return () => clearInterval(timer)
+    const timer = setInterval(() => setNow(dayjs()), 1000);
+    return () => clearInterval(timer);
   }, [])
 
   return (
     <div id="time">
-      <h1 className="row-clock">{time}</h1>
-      <p className="row-date">
-        {day}, {date} {month}
-      </p>
+      <h1 className="row-clock">{now.format('HH:mm')}</h1>
+      <p className="row-date">{now.locale('en').format('dddd, D MMMM')}</p>
     </div>
   )
 }

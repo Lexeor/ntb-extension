@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { getFormattedDateAndTime } from '../utils'
 import type { WeatherData } from '../types'
 
-const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY
+import { getConfig } from '../config'
+
 const WEATHER_BASE = import.meta.env.DEV
   ? '/proxy/weather'
   : 'https://api.openweathermap.org'
@@ -48,8 +49,9 @@ function WeatherPanel() {
       }
     }
 
-    if (!WEATHER_API_KEY) {
-      setError('No API key — set VITE_WEATHER_API_KEY in .env')
+    const { weatherApiKey } = getConfig()
+    if (!weatherApiKey) {
+      setError('No API key — set weatherApiKey in config.json')
       return
     }
 
@@ -57,7 +59,7 @@ function WeatherPanel() {
     setWeather(null)
 
     fetch(
-      `${WEATHER_BASE}/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${WEATHER_API_KEY}`
+      `${WEATHER_BASE}/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${weatherApiKey}`
     )
       .then((res) => {
         if (!res.ok) throw new Error(`${res.status}`)

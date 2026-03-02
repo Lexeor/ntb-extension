@@ -1,0 +1,4 @@
+{
+  "weatherApiKey": "YOUR_OPENWEATHERMAP_KEY",
+  "footballApiKey": "YOUR_FOOTBALL_DATA_ORG_KEY"
+}
