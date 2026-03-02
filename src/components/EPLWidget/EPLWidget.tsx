@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import type { EPLMatch, Countdown } from './types'
-import {
-  API_BASE,
-  UPDATE_INTERVAL_MS,
-  TEAM_KEY,
-  DEFAULT_TEAM_ID,
-  TEAM_COLORS,
-  EPL_TEAMS,
-} from './constants'
-import { cacheKey, getCountdown, formatMatchDate, formatMatchDateShort } from './utils'
-import { getConfig } from '../../config'
+import { getConfig } from '@/config';
+import React, { useEffect, useState } from 'react';
+import { API_BASE, DEFAULT_TEAM_ID, EPL_TEAMS, TEAM_COLORS, TEAM_KEY, UPDATE_INTERVAL_MS } from './constants';
+import type { Countdown, EPLMatch } from './types';
+import { cacheKey, formatMatchDate, formatMatchDateShort, getCountdown } from './utils';
 
 function EPLWidget() {
   const [teamId, setTeamId] = useState<number>(
