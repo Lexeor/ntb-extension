@@ -1,12 +1,12 @@
-import { useExtensionContext } from './extensionContext'
-import FavouritesItem from './FavouritesItem'
+import { useExtensionContext } from './extensionContext';
+import FavouritesItem from './FavouritesItem';
 
 interface FavouritesProps {
-  switchPopup: () => void
+  switchPopup: () => void;
 }
 
 function Favourites({ switchPopup }: FavouritesProps) {
-  const { favs } = useExtensionContext()
+  const { favs } = useExtensionContext();
 
   return (
     <div className="favourites-container">
@@ -25,7 +25,7 @@ function Favourites({ switchPopup }: FavouritesProps) {
         </span>
       </button>
     </div>
-  )
+  );
 }
 
-export default Favourites
+export default Favourites;

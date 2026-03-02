@@ -6,79 +6,79 @@ import { cacheKey, formatMatchDate, formatMatchDateShort, getCountdown } from '.
 
 function EPLWidget() {
   const [teamId, setTeamId] = useState<number>(
-    () => Number(localStorage.getItem(TEAM_KEY)) || DEFAULT_TEAM_ID
-  )
-  const [match, setMatch] = useState<EPLMatch | null>(null)
-  const [countdown, setCountdown] = useState<Countdown>({ days: 0, hours: 0, minutes: 0 })
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [selectingTeam, setSelectingTeam] = useState(false)
+    () => Number(localStorage.getItem(TEAM_KEY)) || DEFAULT_TEAM_ID,
+  );
+  const [match, setMatch] = useState<EPLMatch | null>(null);
+  const [countdown, setCountdown] = useState<Countdown>({ days: 0, hours: 0, minutes: 0 });
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [selectingTeam, setSelectingTeam] = useState(false);
 
   // Fetch next match when teamId changes
   useEffect(() => {
-    setError(null)
-    setMatch(null)
+    setError(null);
+    setMatch(null);
 
-    const cached = localStorage.getItem(cacheKey(teamId))
+    const cached = localStorage.getItem(cacheKey(teamId));
     if (cached) {
-      const parsed = JSON.parse(cached) as EPLMatch
-      const age = Date.now() - new Date(parsed.received).getTime()
+      const parsed = JSON.parse(cached) as EPLMatch;
+      const age = Date.now() - new Date(parsed.received).getTime();
       if (age < UPDATE_INTERVAL_MS) {
-        setMatch(parsed)
-        return
+        setMatch(parsed);
+        return;
       }
     }
 
-    const { footballApiKey } = getConfig()
+    const { footballApiKey } = getConfig();
     if (!footballApiKey) {
-      setError('Set footballApiKey in config.json')
-      return
+      setError('Set footballApiKey in config.json');
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
 
     fetch(`${API_BASE}/teams/${teamId}/matches?status=SCHEDULED&limit=1`, {
       headers: { 'X-Auth-Token': footballApiKey },
     })
       .then((res) => {
-        if (!res.ok) throw new Error(`${res.status}`)
-        return res.json()
+        if (!res.ok) throw new Error(`${res.status}`);
+        return res.json();
       })
       .then((data: { matches: EPLMatch[] }) => {
-        const next = data.matches[0]
-        if (!next) throw new Error('no_match')
-        next.received = new Date().toISOString()
-        localStorage.setItem(cacheKey(teamId), JSON.stringify(next))
-        setMatch(next)
-        setLoading(false)
+        const next = data.matches[0];
+        if (!next) throw new Error('no_match');
+        next.received = new Date().toISOString();
+        localStorage.setItem(cacheKey(teamId), JSON.stringify(next));
+        setMatch(next);
+        setLoading(false);
       })
       .catch((err: Error) => {
-        setLoading(false)
+        setLoading(false);
         setError(
           err.message === 'no_match' ? 'No upcoming matches' :
-          err.message === '401'      ? 'Invalid API key' :
-                                       'Failed to fetch'
-        )
-      })
-  }, [teamId])
+            err.message === '401' ? 'Invalid API key' :
+              'Failed to fetch',
+        );
+      });
+  }, [teamId]);
 
   // Live countdown — update every 30s
   useEffect(() => {
-    if (!match) return
-    const tick = () => setCountdown(getCountdown(new Date(match.utcDate)))
-    tick()
-    const id = setInterval(tick, 30_000)
-    return () => clearInterval(id)
-  }, [match])
+    if (!match) return;
+    const tick = () => setCountdown(getCountdown(new Date(match.utcDate)));
+    tick();
+    const id = setInterval(tick, 30_000);
+    return () => clearInterval(id);
+  }, [match]);
 
   function handleTeamChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const newId = Number(e.target.value)
-    localStorage.setItem(TEAM_KEY, String(newId))
-    setTeamId(newId)
-    setSelectingTeam(false)
+    const newId = Number(e.target.value);
+    localStorage.setItem(TEAM_KEY, String(newId));
+    setTeamId(newId);
+    setSelectingTeam(false);
   }
 
-  const selectedTeam = EPL_TEAMS.find((t) => t.id === teamId)
+  const selectedTeam = EPL_TEAMS.find((t) => t.id === teamId);
 
   return (
     <div className="epl-container backdrop-blur-sm">
@@ -107,7 +107,8 @@ function EPLWidget() {
             ))}
           </select>
         ) : (
-          <button className="epl-team-btn" onClick={() => setSelectingTeam(true)} title={selectedTeam?.shortName ?? 'Select team'}>
+          <button className="epl-team-btn" onClick={() => setSelectingTeam(true)}
+                  title={selectedTeam?.shortName ?? 'Select team'}>
             <i className="ri-settings-3-line" />
           </button>
         )}
@@ -133,8 +134,8 @@ function EPLWidget() {
             </div>
             <div className="epl-countdown">
               {[
-                { value: countdown.days,    label: 'DAYS'    },
-                { value: countdown.hours,   label: 'HOURS'   },
+                { value: countdown.days, label: 'DAYS' },
+                { value: countdown.hours, label: 'HOURS' },
                 { value: countdown.minutes, label: 'MINS' },
               ].map(({ value, label }) => (
                 <div key={label} className="epl-countdown-col">
@@ -157,7 +158,7 @@ function EPLWidget() {
         </>
       )}
     </div>
-  )
+  );
 }
 
-export default EPLWidget
+export default EPLWidget;

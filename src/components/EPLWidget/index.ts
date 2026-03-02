@@ -1,1 +1,1 @@
-export { default } from './EPLWidget'
+export { default } from './EPLWidget';

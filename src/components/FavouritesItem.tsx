@@ -1,40 +1,40 @@
-import { useState } from 'react'
-import { getCompactLabel } from '../utils'
-import { useExtensionContext } from './extensionContext'
+import { useState } from 'react';
+import { getCompactLabel } from '../utils';
+import { useExtensionContext } from './extensionContext';
 
 interface FavouritesItemProps {
-  id: number
-  url: string
-  name: string
-  switchPopup: () => void
+  id: number;
+  url: string;
+  name: string;
+  switchPopup: () => void;
 }
 
 function FavouritesItem({ id, url, name, switchPopup }: FavouritesItemProps) {
-  const context = useExtensionContext()
-  const [showSettingsButton, setShowSettingsButton] = useState(false)
-  const [showSettingsMenu, setShowSettingsMenu] = useState(false)
+  const context = useExtensionContext();
+  const [showSettingsButton, setShowSettingsButton] = useState(false);
+  const [showSettingsMenu, setShowSettingsMenu] = useState(false);
 
   function handleMouseEnter() {
-    if (!showSettingsMenu) setShowSettingsButton(true)
+    if (!showSettingsMenu) setShowSettingsButton(true);
   }
 
   function handleMouseLeave() {
-    setShowSettingsButton(false)
-    setShowSettingsMenu(false)
+    setShowSettingsButton(false);
+    setShowSettingsMenu(false);
   }
 
   function handleSettingsClick() {
-    setShowSettingsMenu((prev) => !prev)
-    setShowSettingsButton(false)
+    setShowSettingsMenu((prev) => !prev);
+    setShowSettingsButton(false);
   }
 
   function handleEdit() {
-    context.addEditedObject({ id, url, name })
-    switchPopup()
+    context.addEditedObject({ id, url, name });
+    switchPopup();
   }
 
   function handleRemove() {
-    context.removeFromFavourites(id)
+    context.removeFromFavourites(id);
   }
 
   return (
@@ -65,7 +65,7 @@ function FavouritesItem({ id, url, name, switchPopup }: FavouritesItemProps) {
         </span>
       </a>
     </div>
-  )
+  );
 }
 
-export default FavouritesItem
+export default FavouritesItem;

@@ -3,30 +3,30 @@ import { useEffect, useRef, useState } from 'react';
 type SearchEngine = 'google' | 'youtube'
 
 function SearchBar() {
-  const searchInput = useRef<HTMLInputElement>(null)
-  const [searchEngine, setSearchEngine] = useState<SearchEngine>('youtube')
+  const searchInput = useRef<HTMLInputElement>(null);
+  const [searchEngine, setSearchEngine] = useState<SearchEngine>('youtube');
 
   useEffect(() => {
-    const engine = localStorage.getItem('searchEngine') as SearchEngine | null
-    setSearchEngine(engine ?? 'youtube')
-  }, [])
+    const engine = localStorage.getItem('searchEngine') as SearchEngine | null;
+    setSearchEngine(engine ?? 'youtube');
+  }, []);
 
   function redirect(val: string, engine?: SearchEngine) {
-    const active = engine ?? searchEngine
+    const active = engine ?? searchEngine;
     window.location.href = active === 'youtube'
-        ? `https://www.youtube.com/results?search_query=${encodeURIComponent(val)}`
-        : `https://www.google.com/search?q=${encodeURIComponent(val)}`;
+      ? `https://www.youtube.com/results?search_query=${encodeURIComponent(val)}`
+      : `https://www.google.com/search?q=${encodeURIComponent(val)}`;
   }
 
   function handleEngineClick(engine: SearchEngine) {
-    localStorage.setItem('searchEngine', engine)
-    setSearchEngine(engine)
+    localStorage.setItem('searchEngine', engine);
+    setSearchEngine(engine);
     if (searchInput.current?.value) {
-      redirect(searchInput.current.value, engine)
+      redirect(searchInput.current.value, engine);
     }
   }
 
-  const placeholder = `Search in ${searchEngine.charAt(0).toUpperCase() + searchEngine.slice(1)}`
+  const placeholder = `Search in ${searchEngine.charAt(0).toUpperCase() + searchEngine.slice(1)}`;
 
   return (
     <div className="search-container">
@@ -41,7 +41,7 @@ function SearchBar() {
           placeholder={placeholder}
           onKeyDown={(e) => {
             if (e.key === 'Enter' && searchInput.current) {
-              redirect(searchInput.current.value)
+              redirect(searchInput.current.value);
             }
           }}
         />
@@ -55,7 +55,7 @@ function SearchBar() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default SearchBar
+export default SearchBar;

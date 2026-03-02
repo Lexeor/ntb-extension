@@ -1,102 +1,102 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { getFormattedDateAndTime } from '../utils'
-import type { WeatherData } from '../types'
+import React, { useEffect, useRef, useState } from 'react';
 
-import { getConfig } from '../config'
+import { getConfig } from '../config';
+import type { WeatherData } from '../types';
+import { getFormattedDateAndTime } from '../utils';
 
 const WEATHER_BASE = import.meta.env.DEV
   ? '/proxy/weather'
-  : 'https://api.openweathermap.org'
-const UPDATE_INTERVAL_MS = 60 * 60 * 1000
-const CITY_KEY = 'weatherCity'
-const DEFAULT_CITY = 'Herceg Novi, ME'
+  : 'https://api.openweathermap.org';
+const UPDATE_INTERVAL_MS = 60 * 60 * 1000;
+const CITY_KEY = 'weatherCity';
+const DEFAULT_CITY = 'Herceg Novi, ME';
 
 function cacheKey(city: string) {
-  return `weather_${city.toLowerCase()}`
+  return `weather_${city.toLowerCase()}`;
 }
 
 function isTimeToUpdate(dateReceived: Date): boolean {
-  return Date.now() - dateReceived.getTime() >= UPDATE_INTERVAL_MS
+  return Date.now() - dateReceived.getTime() >= UPDATE_INTERVAL_MS;
 }
 
 function WeatherPanel() {
   const [city, setCity] = useState<string>(
-    () => localStorage.getItem(CITY_KEY) ?? DEFAULT_CITY
-  )
-  const [editingCity, setEditingCity] = useState(false)
-  const [weather, setWeather] = useState<WeatherData | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
-  const cityInputRef = useRef<HTMLInputElement>(null)
+    () => localStorage.getItem(CITY_KEY) ?? DEFAULT_CITY,
+  );
+  const [editingCity, setEditingCity] = useState(false);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const cityInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (editingCity) {
-      cityInputRef.current?.focus()
-      cityInputRef.current?.select()
+      cityInputRef.current?.focus();
+      cityInputRef.current?.select();
     }
-  }, [editingCity])
+  }, [editingCity]);
 
   useEffect(() => {
-    setError(null)
-    setLoading(false)
+    setError(null);
+    setLoading(false);
 
-    const cached = localStorage.getItem(cacheKey(city))
+    const cached = localStorage.getItem(cacheKey(city));
     if (cached) {
-      const parsed = JSON.parse(cached) as WeatherData
+      const parsed = JSON.parse(cached) as WeatherData;
       if (!isTimeToUpdate(new Date(parsed.received))) {
-        setWeather(parsed)
-        return
+        setWeather(parsed);
+        return;
       }
     }
 
-    const { weatherApiKey } = getConfig()
+    const { weatherApiKey } = getConfig();
     if (!weatherApiKey) {
-      setError('No API key — set weatherApiKey in config.json')
-      return
+      setError('No API key — set weatherApiKey in config.json');
+      return;
     }
 
-    setLoading(true)
-    setWeather(null)
+    setLoading(true);
+    setWeather(null);
 
     fetch(
-      `${WEATHER_BASE}/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${weatherApiKey}`
+      `${WEATHER_BASE}/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${weatherApiKey}`,
     )
       .then((res) => {
-        if (!res.ok) throw new Error(`${res.status}`)
-        return res.json()
+        if (!res.ok) throw new Error(`${res.status}`);
+        return res.json();
       })
       .then((data: WeatherData) => {
-        data.received = new Date().toISOString()
-        localStorage.setItem(cacheKey(city), JSON.stringify(data))
-        setWeather(data)
-        setLoading(false)
+        data.received = new Date().toISOString();
+        localStorage.setItem(cacheKey(city), JSON.stringify(data));
+        setWeather(data);
+        setLoading(false);
       })
       .catch((err: Error) => {
-        setLoading(false)
-        setError(err.message === '404' ? `City "${city}" not found` : 'Failed to fetch weather')
-      })
-  }, [city])
+        setLoading(false);
+        setError(err.message === '404' ? `City "${city}" not found` : 'Failed to fetch weather');
+      });
+  }, [city]);
 
   function handleCitySubmit() {
-    const input = cityInputRef.current
-    if (!input) return
-    const trimmed = input.value.trim()
+    const input = cityInputRef.current;
+    if (!input) return;
+    const trimmed = input.value.trim();
     if (trimmed && trimmed !== city) {
-      localStorage.setItem(CITY_KEY, trimmed)
-      setCity(trimmed)
+      localStorage.setItem(CITY_KEY, trimmed);
+      setCity(trimmed);
     }
-    setEditingCity(false)
+    setEditingCity(false);
   }
 
   function handleCityKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Enter') handleCitySubmit()
-    if (e.key === 'Escape') setEditingCity(false)
+    if (e.key === 'Enter') handleCitySubmit();
+    if (e.key === 'Escape') setEditingCity(false);
   }
 
-  const now = new Date()
-  const sunset = weather ? new Date(0) : null
-  if (sunset && weather) sunset.setUTCSeconds(weather.sys.sunset)
-  const sunHoursLeft = sunset ? Math.max(0, Math.floor(sunset.getHours() - now.getHours())) : 0
+  const now = new Date();
+  const sunset = weather ? new Date(0) : null;
+  if (sunset && weather) sunset.setUTCSeconds(weather.sys.sunset);
+  const sunHoursLeft = sunset ? Math.max(0, Math.floor(sunset.getHours() - now.getHours())) : 0;
 
   return (
     <div className="weather-container">
@@ -165,7 +165,7 @@ function WeatherPanel() {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default WeatherPanel
+export default WeatherPanel;

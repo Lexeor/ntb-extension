@@ -1,20 +1,20 @@
-import { useState } from 'react'
-import type { Settings } from '../types'
+import { useState } from 'react';
+import type { Settings } from '../types';
 
 interface SettingsBarProps {
-  settings: Settings | undefined
-  handleSettingToggle: (name: keyof Settings['modules']) => void
+  settings: Settings | undefined;
+  handleSettingToggle: (name: keyof Settings['modules']) => void;
 }
 
 function SettingsBar({ settings, handleSettingToggle }: SettingsBarProps) {
-  const [active, setActive] = useState(false)
+  const [active, setActive] = useState(false);
 
   function isVisible(name: keyof Settings['modules']): string {
-    if (!settings) return ' on'
-    return (settings.modules[name]?.visible ?? true) ? ' on' : ' off'
+    if (!settings) return ' on';
+    return (settings.modules[name]?.visible ?? true) ? ' on' : ' off';
   }
 
-  const activeClass = active ? ' active' : ''
+  const activeClass = active ? ' active' : '';
 
   return (
     <div className="settings-container">
@@ -39,7 +39,7 @@ function SettingsBar({ settings, handleSettingToggle }: SettingsBarProps) {
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default SettingsBar
+export default SettingsBar;
