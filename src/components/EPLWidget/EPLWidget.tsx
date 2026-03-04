@@ -89,8 +89,9 @@ function EPLWidget() {
           {match ? formatMatchDateShort(match.utcDate) : ''}
         </div>
 
-        <div className="epl-title">
+        <div className="epl-title flex-col gap-0">
           <img src="/images/epl-logo.svg" alt="epl_logo" className="w-6 h-6" />
+          <div className="epl-competition">{match?.competition.name}</div>
         </div>
 
         {selectingTeam ? (
@@ -161,10 +162,15 @@ function EPLWidget() {
               <span className="epl-team-name">{match.awayTeam.shortName}</span>
             </div>
           </div>
-          <div className="epl-footer">
+          <div className={`epl-footer ${countdown.days === 0 ? 'mb-6 -mt-4' : ''}`}>
             <div className="epl-date">{formatMatchDate(match.utcDate)}</div>
-            <div className="epl-competition">{match.competition.name}</div>
           </div>
+          {countdown.days === 0 && (
+            <p
+              className="absolute -bottom-4 left-1/2 -translate-x-1/2 opacity-20 text-[48px] font-bold tracking-wide pointer-events-none select-none whitespace-nowrap">
+              MATCHDAY
+            </p>
+          )}
         </>
       )}
     </div>
