@@ -43,3 +43,6 @@ pnpm-debug.log*
 # Misc
 .pnp
 .pnp.js
+
+# Release archives
+*.zip
