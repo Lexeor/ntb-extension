@@ -1,9 +1,10 @@
 import { getConfig } from '@/config';
+import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import NoApiKey from '../NoApiKey';
 import { API_BASE, DEFAULT_TEAM_ID, EPL_TEAMS, TEAM_COLORS, TEAM_KEY, UPDATE_INTERVAL_MS } from './constants';
 import type { Countdown, EPLMatch } from './types';
-import { cacheKey, formatMatchDate, formatMatchDateShort, getCountdown } from './utils';
+import { cacheKey, formatMatchDate, getCountdown } from './utils';
 
 function EPLWidget() {
   const [teamId, setTeamId] = useState<number>(
@@ -23,8 +24,9 @@ function EPLWidget() {
     const cached = localStorage.getItem(cacheKey(teamId));
     if (cached) {
       const parsed = JSON.parse(cached) as EPLMatch;
-      const age = Date.now() - new Date(parsed.received).getTime();
-      if (age < UPDATE_INTERVAL_MS) {
+      const age = dayjs().diff(dayjs(parsed.received));
+      const matchStillAhead = dayjs(parsed.utcDate).isAfter(dayjs());
+      if (age < UPDATE_INTERVAL_MS && matchStillAhead) {
         setMatch(parsed);
         return;
       }
@@ -48,7 +50,7 @@ function EPLWidget() {
       .then((data: { matches: EPLMatch[] }) => {
         const next = data.matches[0];
         if (!next) throw new Error('no_match');
-        next.received = new Date().toISOString();
+        next.received = dayjs().toISOString();
         localStorage.setItem(cacheKey(teamId), JSON.stringify(next));
         setMatch(next);
         setLoading(false);
@@ -66,7 +68,7 @@ function EPLWidget() {
   // Live countdown — update every 30s
   useEffect(() => {
     if (!match) return;
-    const tick = () => setCountdown(getCountdown(new Date(match.utcDate)));
+    const tick = () => setCountdown(getCountdown(match.utcDate));
     tick();
     const id = setInterval(tick, 30_000);
     return () => clearInterval(id);
@@ -85,9 +87,6 @@ function EPLWidget() {
     <div className="epl-container backdrop-blur-sm">
       {/* Header */}
       <div className="epl-header">
-        <div className="epl-venue">
-          {match ? formatMatchDateShort(match.utcDate) : ''}
-        </div>
 
         <div className="epl-title flex-col gap-0">
           <img src="/images/epl-logo.svg" alt="epl_logo" className="w-6 h-6" />
