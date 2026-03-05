@@ -13,7 +13,7 @@ export interface EPLMatch {
   venue?: string;
   homeTeam: EPLTeam;
   awayTeam: EPLTeam;
-  competition: { name: string; code: string };
+  competition: { name: string; code: string; emblem: string };
   received: string;
 }
 
