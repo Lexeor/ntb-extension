@@ -100,72 +100,94 @@ function WeatherPanel() {
   const sunHoursLeft = sunset ? Math.max(0, Math.floor(sunset.getHours() - now.getHours())) : 0;
 
   return (
-    <div className="weather-container">
-      {/* Header with editable city */}
-      <div className="weather-header">
+    <div
+      className="relative font-['Exo_2',sans-serif] bg-[var(--clr-gadget-bg)] rounded-[20px] w-full max-w-[400px] px-4 pt-3 pb-4 text-[whitesmoke] flex flex-col mt-3 backdrop-blur-sm">
+
+      {/* Header: city */}
+      <div className="flex items-center h-8">
         {editingCity ? (
-          <div className="weather-city-edit">
-            <i className="ri-map-pin-line" />
+          <div className="flex items-center gap-1.5 text-sm">
+            <i className="ri-map-pin-line opacity-60" />
             <input
               ref={cityInputRef}
-              className="weather-city-input"
+              className="bg-transparent border-0 border-b border-white/50 text-[whitesmoke] font-['Exo_2',sans-serif] px-0.5 pb-px w-[130px] outline-none text-sm"
               defaultValue={city}
               onKeyDown={handleCityKeyDown}
               onBlur={handleCitySubmit}
             />
           </div>
         ) : (
-          <button className="weather-city-btn" onClick={() => setEditingCity(true)}>
-            <i className="ri-map-pin-line" />
+          <button
+            className="[all:unset] flex items-center gap-1.5 cursor-pointer rounded-md px-1.5 py-0.5 -mx-1.5 transition-colors duration-200 hover:bg-white/10 hover:rounded-lg group text-sm opacity-70"
+            onClick={() => setEditingCity(true)}
+          >
+            <i className="ri-map-pin-line mr-2" />
             <span>{weather ? `${weather.name}, ${weather.sys.country}` : city}</span>
-            <i className="ri-pencil-line weather-city-edit-icon" />
+            <i
+              className="ri-pencil-line text-[0.75rem] text-white/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
           </button>
         )}
       </div>
 
-      {/* Body */}
+      {/* States: loading / error / content */}
       {error === 'no_key' ? (
-        <NoApiKey variant="weather" />
+        <div className="flex-1 flex items-center justify-center py-6">
+          <NoApiKey variant="weather" />
+        </div>
       ) : error ? (
-        <div className="weather-status">{error}</div>
+        <div className="flex-1 flex items-center justify-center py-6 text-white/45 text-sm">{error}</div>
       ) : loading || !weather ? (
-        <div className="weather-status">Loading…</div>
+        <div className="flex-1 flex items-center justify-center py-6 text-white/45 text-sm">Loading…</div>
       ) : (
-        <div className="weather-body">
-          <img
-            className="weather-image"
-            src={`/images/weather/${weather.weather[0].icon}.png`}
-            alt={weather.weather[0].description}
-          />
-          <div className="weather-type">{weather.weather[0].main}</div>
-          <div className="weather-details">
-            <div className="weather-details-item">
-              <i className="ri-windy-line" />
-              <span>{weather.wind.speed} km/h</span>
-            </div>
-            <div className="weather-details-item">
-              <i className="ri-drop-line" />
-              <span>{weather.main.humidity}%</span>
-            </div>
-            <div className="weather-details-item">
-              <i className="ri-sun-line" />
-              <span>{sunHoursLeft}h</span>
-            </div>
-            {weather.rain && (
-              <div className="weather-details-item">
-                <i className="ri-rainy-line" />
-                <span>{Math.round(weather.rain['1h'] * 100)}%</span>
-              </div>
-            )}
+        <>
+          {/* Hero: icon + type */}
+          <div className="flex flex-col items-center justify-center py-4 gap-1">
+            <img
+              className="w-36 h-36 object-contain drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)]"
+              src={`/images/weather/${weather.weather[0].icon}.png`}
+              alt={weather.weather[0].description}
+            />
+            <span className="text-sm tracking-wide opacity-55 uppercase">{weather.weather[0].main}</span>
           </div>
-          <div className="weather-big">{Math.floor(weather.main.temp)}°</div>
-        </div>
-      )}
 
-      {weather && (
-        <div className="weather-updated">
-          last updated {getFormattedDateAndTime(new Date(weather.received))}
-        </div>
+          {/* Divider */}
+          <div className="border-t border-white/10 mb-3" />
+
+          {/* Bottom: stats left, temperature right */}
+          <div className="flex items-end justify-between">
+            <div className="flex flex-col gap-0.5">
+              <div className="flex items-center gap-2 text-sm">
+                <i className="ri-windy-line w-4 text-base opacity-55" />
+                <span>{weather.wind.speed} km/h</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <i className="ri-drop-line w-4 text-base opacity-55" />
+                <span>{weather.main.humidity}%</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm">
+                <i className="ri-sun-line w-4 text-base opacity-55" />
+                <span>{sunHoursLeft}h until sunset</span>
+              </div>
+              {weather.rain && (
+                <div className="flex items-center gap-2 text-sm">
+                  <i className="ri-rainy-line w-4 text-base opacity-55" />
+                  <span>{Math.round(weather.rain['1h'] * 100)}%</span>
+                </div>
+              )}
+            </div>
+
+            <div
+              className="font-['Exo',sans-serif] text-[5.5rem] font-bold leading-none bg-gradient-to-b from-[#eee] to-[#c2c2c2] bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+              {Math.floor(weather.main.temp)}°
+            </div>
+          </div>
+
+          {/* Last updated */}
+          <div
+            className="text-right mt-1.5 text-[10px] text-white/20 cursor-default hover:text-white/60 transition-colors duration-200">
+            {getFormattedDateAndTime(new Date(weather.received))}
+          </div>
+        </>
       )}
     </div>
   );
