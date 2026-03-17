@@ -5,10 +5,12 @@ import SearchBar from './components/SearchBar';
 import SettingsBar from './components/SettingsBar';
 import TimeDate from './components/TimeDate';
 import WeatherPanel from './components/WeatherPanel';
+import { useVantaWaves } from './hooks/useVantaWaves';
 import type { Settings } from './types';
 import { defaultSettings } from './utils';
 
 function App() {
+  const vantaRef = useVantaWaves();
   const [settings, setSettings] = useState<Settings | undefined>();
   const [isPopupShowed, setIsPopupShowed] = useState(false);
 
@@ -53,6 +55,7 @@ function App() {
 
   return (
     <div className="App">
+      <div ref={vantaRef} className="vanta-bg" />
       <Popup isPopupShowed={isPopupShowed} switchPopup={switchPopup} />
       <div className={`w-full h-screen${isPopupShowed ? ' blurred' : ''}`}>
         <div className="flex h-full">
